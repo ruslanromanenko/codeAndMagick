@@ -65,15 +65,17 @@ similarListElement.appendChild(fragment);
 // artifacts shop, start
 var shopElement = document.querySelector('.setup-artifacts-shop');
 var draggedItem = null;
+var artifactsElement = document.querySelector('.setup-artifacts');
+
 
 shopElement.addEventListener('dragstart', function (evt) {
     if(evt.target.tagName.toLowerCase() === 'img'){
         draggedItem = evt.target;
-        evt.dataTransfer.setData('text/plain'. evt.target.alt);
+        artifactsElement.style.outline = '2px dashed red';
+        evt.dataTransfer.setData('text/plain', evt.target.alt);
+
     }
 });
-
-var artifactsElement = document.querySelector('.setup-artifacts');
 
 artifactsElement.addEventListener('dragover', function (evt) {
     evt.preventDefault();
@@ -82,7 +84,11 @@ artifactsElement.addEventListener('dragover', function (evt) {
 
 artifactsElement.addEventListener('drop', function (evt) {
     evt.target.style.backgroundColor = '';
-    evt.target.appendChild(draggedItem.cloneNode(true));
+    if(evt.target.childElementCount < 1){
+        evt.target.appendChild(draggedItem.cloneNode(true));
+    }
+    console.log(evt.target.children.length);
+    artifactsElement.style.outline = '';
     evt.preventDefault();
 });
 
