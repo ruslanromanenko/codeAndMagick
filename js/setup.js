@@ -44,10 +44,8 @@ var wizards = [
     }
 ];
 
-var removeHiden = function(className){
-    document.querySelector(className).classList.remove('hidden');
-};
 
+//create similar wizards, start
 var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
@@ -61,15 +59,40 @@ for(var i = 0; i < wizards.length; i++){
     fragment.appendChild(renderWizard(wizards[i]));
 }
 similarListElement.appendChild(fragment);
+//create similar wizards, end
 
 
-console.log("-");
+// artifacts shop, start
+var shopElement = document.querySelector('.setup-artifacts-shop');
+var draggedItem = null;
 
+shopElement.addEventListener('dragstart', function (evt) {
+    if(evt.target.tagName.toLowerCase() === 'img'){
+        draggedItem = evt.target;
+        evt.dataTransfer.setData('text/plain'. evt.target.alt);
+    }
+});
 
+var artifactsElement = document.querySelector('.setup-artifacts');
 
+artifactsElement.addEventListener('dragover', function (evt) {
+    evt.preventDefault();
+    return false;
+});
 
+artifactsElement.addEventListener('drop', function (evt) {
+    evt.target.style.backgroundColor = '';
+    evt.target.appendChild(draggedItem.cloneNode(true));
+    evt.preventDefault();
+});
 
+artifactsElement.addEventListener('dragenter', function (evt) {
+    evt.target.style.backgroundColor = 'yellow';
+    evt.preventDefault();
+});
 
-
-
-
+artifactsElement.addEventListener('dragleave', function (evt) {
+    evt.target.style.backgroundColor = '';
+    evt.preventDefault();
+});
+// artifacts shop, end
