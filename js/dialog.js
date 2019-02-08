@@ -41,8 +41,8 @@
     };
 
     var  closePopup = function(){
-        // setup.style.top = '';
-        // setup.style.left = '';
+        setup.style.top = '';
+        setup.style.left = '';
         setup.classList.add('hidden');
         document.removeEventListener('keydown', onPopupEscPress);
     };

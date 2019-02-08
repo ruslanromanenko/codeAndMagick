@@ -84,10 +84,9 @@ artifactsElement.addEventListener('dragover', function (evt) {
 
 artifactsElement.addEventListener('drop', function (evt) {
     evt.target.style.backgroundColor = '';
-    if(evt.target.childElementCount < 1){
+    if(evt.target.childElementCount === 0 && evt.target.className === 'setup-artifacts-cell'){
         evt.target.appendChild(draggedItem.cloneNode(true));
     }
-    console.log(evt.target.children.length);
     artifactsElement.style.outline = '';
     evt.preventDefault();
 });
